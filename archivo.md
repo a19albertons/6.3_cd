@@ -11,24 +11,41 @@ participant cuenta bancaria
 
 
 %% enchufar tarjeta
+activate cliente
 cliente ->> lector tarjeta: Insertamos tarjeta
+activate lector tarjeta
 lector tarjeta ->> interfaz cajero: leyendo tarjeta
+deactivate lector tarjeta
 interfaz cajero ->> cliente: Introduzca el pin
 cliente ->> interfaz cajero: envia el pin
+deactivate cliente
+activate interfaz cajero
 interfaz cajero ->> cuenta bancaria: comprueba el pin
+activate cuenta bancaria
 cuenta bancaria ->> interfaz cajero: confirma el pin
+deactivate cuenta bancaria
+
 
 
 %% realizar operaciones sobre tarjeta
 interfaz cajero ->> cliente: pregunta cuanto dinero quiere sacar
+activate cliente
 cliente ->> interfaz cajero: introduce la cantidad a extraer
+deactivate cliente
 interfaz cajero ->> cuenta bancaria: consulta saldo
+activate cuenta bancaria
 cuenta bancaria ->> interfaz cajero: confirma que se puede quitar
+deactivate cuenta bancaria
 interfaz cajero ->> interfaz cajero: saca el dinero
 
 %% pasos finales
 interfaz cajero ->> lector tarjeta: extrae tarjeta
+deactivate interfaz cajero
+activate lector tarjeta
 lector tarjeta ->> cliente: recoge el dinero y tarjeta
+deactivate lector tarjeta
+activate cliente
+deactivate cliente
 ```
 
 Descripción del diagrama elaborado.
