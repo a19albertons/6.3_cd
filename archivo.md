@@ -5,45 +5,45 @@ El código del diagrama de secuencia.
 ```mermaid
 sequenceDiagram
 participant cliente
-participant interfaz cajero
-participant lector tarjeta
-participant cuenta bancaria
+participant interfazCajero
+participant lectorTarjeta
+participant cuentaBancaria
 
 
 %% enchufar tarjeta
 activate cliente
-cliente ->> lector tarjeta: Insertamos tarjeta
-activate lector tarjeta
-lector tarjeta ->> interfaz cajero: leyendo tarjeta
-deactivate lector tarjeta
-interfaz cajero ->> cliente: Introduzca el pin
-cliente ->> interfaz cajero: envia el pin
+cliente ->> lectorTarjeta: Insertamos tarjeta
+activate lectorTarjeta
+lectorTarjeta ->> interfazCajero: leyendo tarjeta
+deactivate lectorTarjeta
+interfazCajero ->> cliente: Introduzca el pin
+cliente ->> interfazCajero: envia el pin
 deactivate cliente
-activate interfaz cajero
-interfaz cajero ->> cuenta bancaria: comprueba el pin
-activate cuenta bancaria
-cuenta bancaria ->> interfaz cajero: confirma el pin
-deactivate cuenta bancaria
+activate interfazCajero
+interfazCajero ->> cuentaBancaria: comprueba el pin
+activate cuentaBancaria
+cuentaBancaria ->> interfazCajero: confirma el pin
+deactivate cuentaBancaria
 
 
 
 %% realizar operaciones sobre tarjeta
-interfaz cajero ->> cliente: pregunta cuanto dinero quiere sacar
+interfazCajero ->> cliente: pregunta cuanto dinero quiere sacar
 activate cliente
-cliente ->> interfaz cajero: introduce la cantidad a extraer
+cliente ->> interfazCajero: introduce la cantidad a extraer
 deactivate cliente
-interfaz cajero ->> cuenta bancaria: consulta saldo
-activate cuenta bancaria
-cuenta bancaria ->> interfaz cajero: confirma que se puede quitar
-deactivate cuenta bancaria
-interfaz cajero ->> interfaz cajero: saca el dinero
+interfazCajero ->> cuentaBancaria: consulta saldo
+activate cuentaBancaria
+cuentaBancaria ->> interfazCajero: confirma que se puede quitar
+deactivate cuentaBancaria
+interfazCajero ->> interfazCajero: saca el dinero
 
 %% pasos finales
-interfaz cajero ->> lector tarjeta: extrae tarjeta
-deactivate interfaz cajero
-activate lector tarjeta
-lector tarjeta ->> cliente: recoge el dinero y tarjeta
-deactivate lector tarjeta
+interfazCajero ->> lectorTarjeta: extrae tarjeta
+deactivate interfazCajero
+activate lectorTarjeta
+lectorTarjeta ->> cliente: recoge el dinero y tarjeta
+deactivate lectorTarjeta
 activate cliente
 deactivate cliente
 ```
